@@ -44,6 +44,66 @@ def calculate_food_carbon(food: Food) -> float:
     }
     return carbon_footprint_per_kg[food.type] * food.amount
 
+def carbon_footprint_calculator():
+    # Define emission factors (g CO2e per unit)
+    emission_factors = {
+        'car_miles': 400,        
+        'pool_miles': 89,        
+        'cycling_miles': 33,      
+        'walking_miles': 19, 
+    }
+
+    print("Welcome to the Carbon Footprint Calculator!")
+
+    # Collect user input for different activities with easier prompts
+    car_mileage = float(input("Enter your average daily car mileage: ") or "100")
+    pool_mileage = float(input("Enter your average daily pool mileage: ") or "50")
+    cycling_mileage = float(input("Enter your daily cycling mileage: ") or "20")
+    walking_mileage = float(input("Enter your daily walking mileage: ") or "5")
+    
+    # Calculate emissions
+    car_emissions = car_mileage * emission_factors['car_miles']
+    pool_emissions = pool_mileage * emission_factors['bus_miles']
+    cycling_emissions = cycling_mileage * emission_factors['cycling_miles']
+    walking_emissions = walking_mileage *emission_factors['walking_miles']
+   
+
+    # Sum all emissions
+    total_emissions = (car_emissions + pool_emissions + cycling_emissions + walking_mileage)
+
+    # Calculate points (1 point per kg CO2e)
+    total_points = total_emissions
+
+    # Output the results
+    print("\nYour monthly carbon footprint is approximately {:.2f} g CO2e".format(total_emissions))
+    print("You have accumulated {:.2f} points.".format(total_points))
+    print("\nBreakdown of emissions and points:")
+    print("  Car: {:.2f} g CO2e, {:.2f} points".format(car_emissions, car_emissions))
+    print("  Pool: {:.2f} g CO2e, {:.2f} points".format(pool_emissions, pool_emissions))
+    print("  Cycle: {:.2f} g CO2e, {:.2f} points".format(cycling_emissions, cycling_emissions))
+    print("  Walk: {:.2f} g CO2e, {:.2f} points".format(walking_emissions, walking_emissions))
+
+    # Simple interpretation of points
+    if total_points < 50000:
+        print("\nGreat job! Your carbon footprint is relatively low.")
+    elif total_points < 200000:
+        print("\nYour carbon footprint is moderate. There are opportunities to reduce it further.")
+    else:
+        print("\nYour carbon footprint is high. Consider taking steps to reduce it.")
+
+
+def calculate_points(item) -> int:
+    if isinstance(item, Transport):
+        emissions = calculate_footprint_transport(item)
+    elif isinstance(item, Waste):
+        emissions = calculate_waste_carbon(item)
+    elif isinstance(item, Food):
+        emissions = calculate_food_carbon(item)
+    else:
+        raise ValueError("Unknown item type")
+
+
+
 def main():
     emissions = {
         'transport_emission': 0,
@@ -62,6 +122,12 @@ def main():
         'vegetarian': 0,
         'vegan': 0,
         'total_emission': 0
+    }
+    points = {
+        'transport': 0,
+        'waste': 0,
+        'food': 0,
+        'total': 0
     }
 
     print("Welcome to Carbon Footprint Calculator!")
@@ -113,6 +179,14 @@ def main():
     
     emissions['total_emission'] = emissions['food_emission'] + emissions['transport_emission'] + emissions['waste_emission']
     print(f"\nTotal Carbon Emissions: {emissions['total_emission']} grams CO2 equivalent")
+    points['total'] = points['transport'] + points['waste'] + points['food']
+    if points['total'] < 8:
+        print("\nGreat job! Your carbon footprint is relatively low.")
+    elif points['total'] < 20:
+        print("\nYour carbon footprint is moderate. There are opportunities to reduce it further.")
+    else:
+        print("\nYour carbon footprint is high. Consider taking steps to reduce it.")
+
 
 if __name__ == "__main__":
     main()
