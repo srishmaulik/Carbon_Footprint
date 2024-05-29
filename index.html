@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carbon Footprint Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        #Page2 {
+            display: none;
+        }
+    </style>
+    <script src="script.js" defer></script>
+</head>
+<body>
+<div id="Page1">
+    <h1>Carbon Footprint Calculator</h1>
+    <form id="carbonForm">
+        <h2>Transport Emissions</h2>
+        <label for="transport_mode">Mode of Transport:</label>
+        <select name="transport_mode" id="transport_mode" required>
+            <option value="car">Car</option>
+            <option value="cycle">Cycle</option>
+            <option value="foot">Foot</option>
+            <option value="pool">Pool</option>
+            <option value="motorcycle">Motorcycle</option>
+        </select><br>
+
+        <label for="transport_distance">Distance (km):</label>
+        <input type="number" name="transport_distance" id="transport_distance" step="0.1" required><br>
+
+        <label for="transport_passengers">Number of Passengers (if pool):</label>
+        <input type="number" name="transport_passengers" id="transport_passengers"><br>
+
+        <h2>Waste Emissions</h2>
+        <label for="waste_type">Type of Waste:</label>
+        <select name="waste_type" id="waste_type" required>
+            <option value="plastic">Plastic</option>
+            <option value="paper">Paper</option>
+            <option value="cans">Cans</option>
+            <option value="glass">Glass</option>
+        </select><br>
+
+        <label for="waste_quantity">Quantity (kg):</label>
+        <input type="number" name="waste_quantity" id="waste_quantity" step="0.1" required><br>
+
+        <h2>Food Emissions</h2>
+        <label for="food_type">Type of Diet:</label>
+        <select name="food_type" id="food_type" required>
+            <option value="meat">Meat</option>
+            <option value="vegetarian">Vegetarian</option>
+            <option value="vegan">Vegan</option>
+        </select><br>
+
+        <label for="food_amount">Amount (kg):</label>
+        <input type="number" name="food_amount" id="food_amount" step="0.1" required><br>
+
+        <button type="submit">Calculate</button>
+    </form>
+</div>
+<div id="Page2">
+    <h1>Carbon Footprint Results</h1>
+    <p>Your total carbon emissions are: <span id="total_emissions"></span> grams CO2 equivalent.</p>
+    <a href="#" onclick="return show('Page1','Page2');">Calculate Again</a>
+    <h2>Here are some ways to reduce your carbon footprint: </h2>
+    <h3>Transportation</h3>
+    Drive less, walk or bike when possible, and use public transportation. You can also consider switching to an electric vehicle.
+    <h4>Energy</h4>
+    Turn off lights and unplug devices when not in use, and lower the thermostat in the winter and summer. You can also take short showers, turn off the water while brushing your teeth or washing dishes, and don't leave your phone charging when it's full.
+    <h5>Waste</h5>
+    Reduce, reuse, repair, and recycle. Buy products with less packaging, in bulk, or buy second-hand.
+    <h6>Food</h6>
+    Eat more locally-grown or organic produce, less red meat, and throw away less food.</p>
+</div>
+</body>
+</html>
